@@ -7,7 +7,7 @@ const app = new Hono();
 const httpServer = serve(
   {
     fetch: app.fetch,
-    port: 3000,
+    port: 3001,
   },
   (info) => {
     console.log(`Server is running on http://localhost:${info.port}`);
@@ -15,7 +15,9 @@ const httpServer = serve(
 );
 
 const io = new Server(httpServer, {
-  /* options */
+  cors: {
+    origin: ["http://localhost:3000"],
+  },
 });
 
 io.on("connection", (socket) => {
